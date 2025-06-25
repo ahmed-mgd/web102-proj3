@@ -7,22 +7,35 @@ function App() {
   const [index, setIndex] = useState(0);
   const [flipped, setFlipped] = useState(false);
   const [answer, setAnswer] = useState("");
+  const [feedback, setFeedback] = useState(0);
 
-  function showRandomCard() {
-    const randomIndex = Math.floor(Math.random() * flashcards.length);
-    setIndex(randomIndex);
+  function resetState() {
     setFlipped(false);
     setAnswer("");
+    setFeedback(0);
+  }
+
+  function handleNext() {
+    if (index < flashcards.length - 1) {
+      setIndex(index + 1);
+      resetState();
+    }
+  }
+
+  function handlePrevious() {
+    if (index > 0) {
+      setIndex(index - 1);
+      resetState();
+    }
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     if (answer.trim().toLowerCase() === flashcards[index].answer.toLowerCase()) {
-      alert("Correct!");
+      setFeedback(1);
       setFlipped(true);
-      setAnswer("");
     } else {
-      alert("Incorrect, try again!");
+      setFeedback(-1);
       setFlipped(false);
     }
   }
@@ -43,11 +56,19 @@ function App() {
             type="text"
             value={answer}
             onChange={event => setAnswer(event.target.value)}
-            placeholder="Type your answer here..."
+            placeholder="Place your answer here..."
+            className={feedback === 1 ? "input-correct" : feedback === -1 ? "input-incorrect" : ""}
           />
           <button type="submit">Submit</button>
         </form>
-        <button onClick={showRandomCard}>&rarr;</button>
+        <div className="nav-buttons">
+          <button onClick={handlePrevious} disabled={index === 0}>
+            &larr;
+          </button>
+          <button onClick={handleNext} disabled={index === flashcards.length - 1}>
+            &rarr;
+          </button>
+        </div>
       </div>
       <div className="bottom-bar"></div>
     </div>

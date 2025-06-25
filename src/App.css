@@ -26,6 +26,28 @@
 }
 
 button {
-  margin-top: 1rem;
   padding: 0.5rem 1rem;
+  margin: 0 0.5rem;
+}
+
+.guess {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 0.2rem
+}
+
+.input-correct {
+  border: 2px solid #4caf50 !important;
+  box-shadow: 0 0 4px #4caf50;
+  outline: none;
+  background: #eaffea;
+}
+
+.input-incorrect {
+  border: 2px solid #f44336 !important;
+  box-shadow: 0 0 4px #f44336;
+  outline: none;
+  background: #ffeaea;
 }
